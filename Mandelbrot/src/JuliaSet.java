@@ -33,10 +33,16 @@ public class JuliaSet extends ImagePanel {
         return image;
     }
 
+    @Override
+    protected String getTitle() {
+        return "Juila set at " + c.toString();
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new MainApp(new JuliaSet(new Complex(0.285, 0.01)));
+                new MainApp(new JuliaSet(new Complex(-0.8, 0.156)));
             }
         });
     }

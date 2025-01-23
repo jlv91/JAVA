@@ -28,6 +28,6 @@ public class Complex {
 
     @Override
     public String toString() {
-        return this.re + "" + this.im + " i";
+        return this.re + " + " + this.im + " i";
     }
 }

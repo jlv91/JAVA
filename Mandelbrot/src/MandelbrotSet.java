@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
 
 public class MandelbrotSet extends ImagePanel {
 
-    protected final Complex Z0 = new Complex(0, 0);
+    private final Complex Z0 = new Complex(0, 0);
 
     public MandelbrotSet() {
         super(400, 400, new Complex(-0.5, 0.0));
@@ -40,5 +40,10 @@ public class MandelbrotSet extends ImagePanel {
                 new MainApp(new MandelbrotSet());
             }
         });
+    }
+
+    @Override
+    protected String getTitle() {
+        return "Mandelbrot set";
     }
 }

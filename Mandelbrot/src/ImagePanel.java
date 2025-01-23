@@ -67,4 +67,6 @@ public abstract class ImagePanel extends JPanel {
     }
         
     protected abstract BufferedImage computeImage();
+
+    protected abstract String getTitle();
 }

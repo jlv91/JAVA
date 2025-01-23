@@ -1,5 +1,6 @@
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
@@ -19,7 +20,7 @@ import javax.swing.JFrame;
 public class MainApp  {
 
     // to generate a name when saving image
-    private int imageIndex = 0;
+    private static int imageIndex = 0;
 
     public MainApp(ImagePanel imagePanel) {
         buildFrame(imagePanel);
@@ -27,11 +28,12 @@ public class MainApp  {
 
     private JFrame buildFrame(final ImagePanel imagePanel) {
         final JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.add(imagePanel, BorderLayout.CENTER);
+        frame.setTitle(imagePanel.getTitle());
         frame.pack();
         // Mouse wheel controls zoom
         frame.addMouseWheelListener(new MouseWheelListener() {
@@ -49,12 +51,15 @@ public class MainApp  {
         // Click and move to move image
         frame.addMouseListener(new MouseAdapter() {
             private Point initialPoint;
+            private static final Cursor MOVE_CURSOR = new Cursor(Cursor.MOVE_CURSOR);
             public void mousePressed(MouseEvent e) {
+                imagePanel.setCursor(MOVE_CURSOR);
                 initialPoint = e.getPoint();
             }
             public void mouseReleased(MouseEvent e) {
                 Point finalPoint = e.getPoint();
                 imagePanel.addTranslation(finalPoint, initialPoint);
+                imagePanel.setCursor(Cursor.getDefaultCursor());
                 imagePanel.repaint();
             }
         });
