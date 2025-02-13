@@ -4,25 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.random.RandomGeneratorFactory;
 
+
 import org.junit.Test;
 
 public class JEP_java17 {
-    public static void main(String[] args) {
-        // New Random algorithm
-        RandomGeneratorFactory.all().forEach(f -> System.out.println(String.format("%s - %s - %s", f.group(), f.name(), f.period())));
-        
-        // Text bloc
-        String textBloc = """
-                line 0
-                    line 1
-                        line 2
-            line 3
-        """;
-        System.out.println(textBloc);
 
-        // Message give the name of null  variable
-        Object n = null;
-        System.out.println(n.toString());
+    @Test
+    public void testJEP356_RandomGenerator() { 
+
+        var drgf = RandomGeneratorFactory.getDefault();
+        assertEquals("L32X64MixRandom", drgf.name());
+
+        var drg = drgf.create();
+        assertTrue(drg.nextInt(0, 5) < 5);
     }
 
     sealed abstract class Color permits Red, Green, Blue {}
@@ -30,6 +24,7 @@ public class JEP_java17 {
     sealed class Green extends Color permits LightGreen {}
     final class  LightGreen extends Green {}
     non-sealed class Blue extends Color {}
+
 
     @Test
     public void testJEP360_SealedClasses() {  // since java15
@@ -39,7 +34,33 @@ public class JEP_java17 {
         c = new LightGreen();
         assertTrue(c instanceof Green g && g instanceof LightGreen && g.getClass() == LightGreen.class);
     }
-    
+
+    @Test
+    public void testJEP378_TextBlock() { 
+
+        var b = """
+            line 0
+                line 1
+        """;
+        assertFalse(b.contains("\t"));
+        assertTrue(b.contains("\n"));
+        
+        assertEquals("    line 0\n        line 1\n", b);
+
+        b = """
+            line 0
+                line 1
+            """;
+        assertEquals("line 0\n    line 1\n", b);
+
+        b = """
+        line 0
+                line 1
+            """;
+        assertEquals("line 0\n        line 1\n", b);
+    }
+
+
     @Test
     public void testJEP394_Instanceof() {  // java16
         Object o = new String("une chaine");
@@ -55,7 +76,7 @@ public class JEP_java17 {
     
     record Range(int low, int high)  implements Comparable<Range> { // Record can not extend but can implement
         Range {
-            if (low > high)  // referring here to the implicit constructor parameters
+            if (low > high)  
                 throw new IllegalArgumentException(String.format("(%d,%d)", low, high));
         }
 
@@ -67,8 +88,8 @@ public class JEP_java17 {
 
     @Test
     public void testJEP395_Record() { // since java 14
-        Range r1 = new Range(0,5);
-        Range r2 = new Range(0,5);
+        var r1 = new Range(0,5);
+        var r2 = new Range(0,5);
 
         assertEquals(5, r1.high());
         assertEquals(0, r1.low());
