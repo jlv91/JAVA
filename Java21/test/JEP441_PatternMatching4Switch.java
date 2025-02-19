@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class JEP441_PatternMatching4Swith {
+public class JEP441_PatternMatching4Switch {
 
     static String formatterPatternSwitch(Object obj) {
         return switch (obj) {
