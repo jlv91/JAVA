@@ -1,0 +1,28 @@
+{
+    "folders": [
+        {
+            "path": "./Java17"
+        },
+        {
+            "path": "./Java21"
+        },
+		{
+            "path": "./JavaXX"
+        },
+		{
+            "path": "./Mandelbrot"
+        }
+    ],
+    "settings": {
+		"java.project.sourcePaths": [
+            "src",
+            "test"
+        ],
+		"java.project.outputPath": "bin",
+		"java.project.referencedLibraries": [
+            "c:\\Users\\jlvassent\\travail\\BAC_A_SABLE\\JAVA\\Java21\\lib\\junit-platform-console-standalone-1.11.4.jar"
+        ]
+
+	}
+
+}

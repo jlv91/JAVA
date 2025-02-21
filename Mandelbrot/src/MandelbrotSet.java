@@ -10,6 +10,14 @@ public class MandelbrotSet extends ImagePanel {
 
     private final Complex Z0 = new Complex(0, 0);
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new MainApp(new MandelbrotSet());
+            }
+        });
+    }
+
     public MandelbrotSet() {
         super(400, 400, new Complex(-0.5, 0.0));
     }
@@ -32,14 +40,6 @@ public class MandelbrotSet extends ImagePanel {
         });
 
         return image;
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new MainApp(new MandelbrotSet());
-            }
-        });
     }
 
     @Override
